@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>Codebook - Class Project: Getting &amp; Cleaning Data - July, 2014</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: rgb(88, 72, 246)
+   }
+
+   pre .number {
+     color: rgb(0, 0, 205);
+   }
+
+   pre .comment {
+     color: rgb(76, 136, 107);
+   }
+
+   pre .keyword {
+     color: rgb(0, 0, 255);
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: rgb(3, 106, 7);
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+</head>
+
+<body>
+<h1>Codebook - Class Project: Getting &amp; Cleaning Data - July, 2014</h1>
+
+<p>This document is the codebook for the class project assignment in Johns Hopkins&#39; &ldquo;Getting and Cleaning Data&rdquo; class. Within this I describe the data sources, transformations, data output and other data aspects of the project. Information on running the associated R script are included in the README.md file in the same repository.</p>
+
+<h2>Data Sources</h2>
+
+<p>This project involves a variety of movement information collected from persons wearing a Samsung Galaxy S smartphone. A full description of the data collection process can be found here:</p>
+
+<p><a href="http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones">http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones</a></p>
+
+<p>The dataset itself was downloaded using this URL:</p>
+
+<p><a href="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip">https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip</a></p>
+
+<p>The downloaded zip file creates a directory containing a variety of files. This project utilized a subset of the avaialable files:</p>
+
+<h3>Download Files Utilized</h3>
+
+<h4>Data files</h4>
+
+<ol>
+<li>X_test.txt</li>
+<li>y_test.txt</li>
+<li>subject_test.txt</li>
+<li>X_train.txt</li>
+<li>y_train.txt</li>
+<li>subject_train.txt</li>
+</ol>
+
+<h4>Reference files</h4>
+
+<ol>
+<li>README.txt</li>
+<li>features.txt</li>
+<li>features_info.txt</li>
+<li>activity_labels.txt</li>
+</ol>
+
+<h2>Data File Manipulations</h2>
+
+<p>The data files encompass a pair of 3-set files. The pairs are train and test. Train and test are subsets of the full data set, likely used for regression or other types of statistical testing. My first manipulations involved combining the datasets back into a single data table. This was done is two steps; first the test and train sets were combined into a pair of tables using column manipulations and then the resulting two data frames were combined into a single data frame, named &ldquo;consolidated&rdquo; using a row-related function. The consolidated file was 10,299 x 563 in size.</p>
+
+<h3>Column manipulations</h3>
+
+<pre><code class="r">testCombined = cbind(testSubject, testY, testX)
+trainCombined = cbind(trainSubject, trainY, trainX)
+</code></pre>
+
+<h3>Row based combination</h3>
+
+<pre><code class="r">consolidated = rbind(trainCombined, testCombined)
+</code></pre>
+
+<p>The first two columns of the consolidated file represent the study subject and their activity for the row of data. These columns were relabled to Subject and Activity respectively using:</p>
+
+<pre><code class="r">colnames(consolidated)[1:2] = c(&quot;Subject&quot;, &quot;Activity&quot;)
+</code></pre>
+
+<p>Column 2, Activity, is a numeric factor representing the activity for the row of measurements. The coding of this factor is identified in the &ldquo;activity_labels.text&rdquo; file mentioned above. There were six distinct activities. The numeric values in the column were coded to the text values using this command:</p>
+
+<pre><code class="r">consolidated$Activity = factor(consolidated$Activity,
+                               labels = c(&quot;WALKING&quot;, &quot;WALKING_UPSTAIRS&quot;,
+                                          &quot;WALKING_DOWNSTAIRS&quot;, &quot;SITTING&quot;,
+                                          &quot;STANDING&quot;, &quot;LAYING&quot;))
+</code></pre>
+
+<p>The phase ended with a single data.frame, &ldquo;consolidated&rdquo;. The next step involved selecting which feature columns to include in the final file and the identifying and selecting those columns.</p>
+
+<h2>Feature Identification and Selection</h2>
+
+<p>There are a total of 563 variables available for analysis of which 561 are measurements associated with the specified patient and activity. The columns involved various statistical measures, such as mean, std. deviation and median, of a set of core movement measurements. A discussion of these variables is found in the features_info.txt file which is included at the end of this document. The core measurements are:</p>
+
+<h3>Core Measurements</h3>
+
+<ol>
+<li>tBodyAcc-XYZ </li>
+<li>tGravityAcc-XYZ </li>
+<li>tBodyAccJerk-XYZ</li>
+<li>tBodyGyro-XYZ</li>
+<li>tBodyGyroJerk-XYZ</li>
+<li>tBodyAccMag</li>
+<li>tGravityAccMag</li>
+<li>tBodyAccJerkMag</li>
+<li>tBodyGyroMag</li>
+<li>tBodyGyroJerkMag</li>
+<li>fBodyAcc-XYZ</li>
+<li>fBodyAccJerk-XYZ</li>
+<li>fBodyGyro-XYZ</li>
+<li>fBodyAccMag</li>
+<li>fBodyAccJerkMag</li>
+<li>fBodyGyroMag</li>
+<li>fBodyGyroJerkMag</li>
+</ol>
+
+<p>These are identified in the features.txt file and described in the features_info.txt file. The leading character, t or f, codes whether the measures were originally processed using time domain or frequency domain based techniques. Variables with a trailing &ldquo;-XYZ&rdquo; indicate that 3 separate features, representing a three dimensional axis, are associated with the measure. </p>
+
+<p>Our assignment called for using only the columns associated with the mean and standard deviation for each measurement. Using this constraint I extracted 6 features each for measures 1-5 &amp; 11-13 and 2 features for measures 6-10 and 14-17 for a total feature set of 66. </p>
+
+<p>This extraction was done by first reading in the features file and then greping the column names for the strings of &ldquo;mean()&rdquo; and &ldquo;std()&rdquo; and using the column numbers to extract the subset from the consolidated file. The associated R commands are:</p>
+
+<pre><code class="r">features = read.table(&quot;features.txt&quot;)
+meanColumns = grep(&quot;mean\\(\\)&quot;, features$V2)
+stdColumns = grep(&quot;std\\(\\)&quot;, features$V2)
+desiredColumns = sort(c(meanColumns, stdColumns))
+tempData = data.table(consolidated[, c(1, 2, desiredColumns+2)])[order(Subject, Activity)]
+</code></pre>
+
+<p>There are 6 additional measures at the end of the file that contain the string &ldquo;Mean&rdquo;. These did not seem to be appropriate for our analysis and I did not include them. The resultant table, tempData, is a data.table to enable a few functions used subsequently and to improve speed.</p>
+
+<p>The selected features columns were then renamed to make them more readable. I prefaced each feature with either &ldquo;Mean&rdquo; or &ldquo;Std&rdquo; to indicate whether it is an mean or standard deviation feature. The t and f for replaced with TimeDom or FreqDom to indicate time domain or frequency domain processed features. The string &ldquo;Acc&rdquo; represents measures from the device accelerometer, &ldquo;Gyro&rdquo; measures from teh device gyroscope, Jerk represents linear and angular velocities. More detail on these measures can be found in the features_info.txt file. It is included in its entirety at the end of this document. Finally an X, Y or Z was included at the end for those 3 axis related measures. The command for this used the data.table function setnames:</p>
+
+<pre><code class="r">setnames(tempData, old = 3:68, 
+         new = c(&quot;MeanTimeDomBodyAcc_X&quot;, &quot;MeanTimeDomBodyAcc_Y&quot;, &quot;MeanTimeDomBodyAcc_Z&quot;,
+                 &quot;StdTimeDomBodyAcc_X&quot;, &quot;StdTimeDomBodyAcc_Y&quot;, &quot;StdTimeDomBodyAcc_Z&quot;,
+                 &quot;MeanTimeDomGravityAcc_X&quot;, &quot;MeanTimeDomGravityAcc_Y&quot;, &quot;MeanTimeDomGravityAcc_Z&quot;,
+                 &quot;StdTimeDomGravityAcc_X&quot;, &quot;StdTimeDomGravityAcc_Y&quot;, &quot;StdTimeDomGravityAcc_Z&quot;,
+                 &quot;MeanTimeDomBodyAccJerk_X&quot;, &quot;MeanTimeDomBodyAccJerk_Y&quot;, &quot;MeanTimeDomBodyAccJerk_Z&quot;,
+                 &quot;StdTimeDomBodyAccJerk_X&quot;, &quot;StdTimeDomBodyAccJerk_Y&quot;, &quot;StdTimeDomBodyAccJerk_Z&quot;,
+                 &quot;MeanTimeDomBodyGyro_X&quot;, &quot;MeanTimeDomBodyGyro_Y&quot;, &quot;MeanTimeDomBodyGyro_Z&quot;,
+                 &quot;StdTimeDomBodyGyro_X&quot;, &quot;StdTimeDomBodyGyro_Y&quot;, &quot;StdTimeDomBodyGyro_Z&quot;,
+                 &quot;MeanTimeDomainBodyGyroJerk_X&quot;, &quot;MeanTimeDomainBodyGyroJerk_Y&quot;, &quot;MeanTimeDomainBodyGyroJerk_Z&quot;,
+                 &quot;StdTimeDomainBodyGyroJerk_X&quot;, &quot;StdTimeDomainBodyGyroJerk_Y&quot;, &quot;StdTimeDomainBodyGyroJerk_Z&quot;,
+                 &quot;MeanTimeDomBodyAccMag&quot;, &quot;StdTimeDomBodyAccMag&quot;,
+                 &quot;MeanTimeDomGravityAccMag&quot;, &quot;StdTimeDomGravityAccMag&quot;,
+                 &quot;MeanTimeDomBodyAccJerkMag&quot;, &quot;StdTimeDomBodyAccJerkMag&quot;,
+                 &quot;MeanTimeDomBodyGyroMag&quot;, &quot;StdTimeDomBodyGyroMag&quot;,
+                 &quot;MeanTimeDomBodyGyroJerkMag&quot;, &quot;StdTimeDomBodyGyroJerkMag&quot;,
+                 &quot;MeanFreqDomBodyAcc_X&quot;, &quot;MeanFreqDomBodyAcc_Y&quot;, &quot;MeanFreqDomBodyAcc_Z&quot;,
+                 &quot;StdFreqDomBodyAcc_X&quot;, &quot;StdFreqDomBodyAcc_Y&quot;, &quot;StdFreqDomBodyAcc_Z&quot;,
+                 &quot;MeanFreqBodyAccJerk_X&quot;, &quot;MeanFreqBodyAccJerk_Y&quot;, &quot;MeanFreqBodyAccJerk_Z&quot;,
+                 &quot;StdFreqBodyAccJerk_X&quot;, &quot;StdFreqBodyAccJerk_Y&quot;, &quot;StdFreqBodyAccJerk_Z&quot;,
+                 &quot;MeanFreqDomBodyGyro_X&quot;, &quot;MeanFreqDomBodyGyro_Y&quot;, &quot;MeanFreqDomBodyGyro_Z&quot;,
+                 &quot;StdFreqDomBodyGyro_X&quot;, &quot;StdFreqDomBodyGyro_Y&quot;, &quot;StdFreqDomBodyGyro_Z&quot;, 
+                 &quot;MeanFreqBodyAccMag&quot;, &quot;StdFreqBodyAccMag&quot;,
+                 &quot;MeanFreqBodyAccJerkMag&quot;, &quot;StdFreqBodyAccJerkMag&quot;,
+                 &quot;MeanFreqBodyGyroMag&quot;, &quot;StdFreqBodyGyroMag&quot;,
+                 &quot;MeanFreqBodyGyroJerkMag&quot;, &quot;StdFreqBodyGyroJerkMag&quot;))
+</code></pre>
+
+<h2>Data Summarization</h2>
+
+<p>The project specified &ldquo;Creates a second, independent tidy data set with the average of each variable for each activity and each subject.&rdquo;. This collapses the data set into one row per subject and activity. There are a total of 30 subjects and each subject has 6 activities. This gives the resulting tidy table a total length of 30 x 6 or 180 rows. We have the same number of columns; Subject, Activity, and the average of 66 measures variables for a total of 68 columns. Our final tidy table is 180 x 60 in size. I accomplished the summarization by Subject and Activity using the data.table form:</p>
+
+<pre><code class="r">tidyData = tempData[, lapply(.SD, mean), by = c(&quot;Subject&quot;, &quot;Activity&quot;)]
+</code></pre>
+
+<h2>Data Output</h2>
+
+<p>An output file named &ldquo;Project_Tidy_Data.txt&rdquo; was written to the working directory using the command:</p>
+
+<pre><code class="r">write.table(tidyData, file = &quot;Project_Tidy_Data.txt&quot;)
+</code></pre>
+
+<h1>features_info.txt file</h1>
+
+<p>Feature Selection </p>
+
+<p>The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ. These time domain signals (prefix &#39;t&#39; to denote time) were captured at a constant rate of 50 Hz. Then they were filtered using a median filter and a 3rd order low pass Butterworth filter with a corner frequency of 20 Hz to remove noise. Similarly, the acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ) using another low pass Butterworth filter with a corner frequency of 0.3 Hz. </p>
+
+<p>Subsequently, the body linear acceleration and angular velocity were derived in time to obtain Jerk signals (tBodyAccJerk-XYZ and tBodyGyroJerk-XYZ). Also the magnitude of these three-dimensional signals were calculated using the Euclidean norm (tBodyAccMag, tGravityAccMag, tBodyAccJerkMag, tBodyGyroMag, tBodyGyroJerkMag). </p>
+
+<p>Finally a Fast Fourier Transform (FFT) was applied to some of these signals producing fBodyAcc-XYZ, fBodyAccJerk-XYZ, fBodyGyro-XYZ, fBodyAccJerkMag, fBodyGyroMag, fBodyGyroJerkMag. (Note the &#39;f&#39; to indicate frequency domain signals). </p>
+
+<p>These signals were used to estimate variables of the feature vector for each pattern:<br/>
+&#39;-XYZ&#39; is used to denote 3-axial signals in the X, Y and Z directions.</p>
+
+<ul>
+<li>tBodyAcc-XYZ </li>
+<li>tGravityAcc-XYZ </li>
+<li>tBodyAccJerk-XYZ </li>
+<li>tBodyGyro-XYZ </li>
+<li>tBodyGyroJerk-XYZ </li>
+<li>tBodyAccMag </li>
+<li>tGravityAccMag </li>
+<li>tBodyAccJerkMag </li>
+<li>tBodyGyroMag </li>
+<li>tBodyGyroJerkMag </li>
+<li>fBodyAcc-XYZ </li>
+<li>fBodyAccJerk-XYZ </li>
+<li>fBodyGyro-XYZ </li>
+<li>fBodyAccMag </li>
+<li>fBodyAccJerkMag </li>
+<li>fBodyGyroMag </li>
+<li>fBodyGyroJerkMag </li>
+</ul>
+
+<p>The set of variables that were estimated from these signals are: </p>
+
+<ul>
+<li>mean(): Mean value </li>
+<li>std(): Standard deviation </li>
+<li>mad(): Median absolute deviation </li>
+<li>max(): Largest value in array </li>
+<li>min(): Smallest value in array </li>
+<li>sma(): Signal magnitude area </li>
+<li>energy(): Energy measure. Sum of the squares divided by the number of values.<br/></li>
+<li>iqr(): Interquartile range<br/></li>
+<li>entropy(): Signal entropy </li>
+<li>arCoeff(): Autorregresion coefficients with Burg order equal to 4 </li>
+<li>correlation(): correlation coefficient between two signals </li>
+<li>maxInds(): index of the frequency component with largest magnitude </li>
+<li>meanFreq(): Weighted average of the frequency components to obtain a mean frequency </li>
+<li>skewness(): skewness of the frequency domain signal<br/></li>
+<li>kurtosis(): kurtosis of the frequency domain signal<br/></li>
+<li>bandsEnergy(): Energy of a frequency interval within the 64 bins of the FFT of each window. </li>
+<li>angle(): Angle between to vectors. </li>
+</ul>
+
+<p>Additional vectors obtained by averaging the signals in a signal window sample. These are used on the angle() variable:</p>
+
+<ul>
+<li>gravityMean </li>
+<li>tBodyAccMean </li>
+<li>tBodyAccJerkMean </li>
+<li>tBodyGyroMean </li>
+<li>tBodyGyroJerkMean </li>
+</ul>
+
+<p>The complete list of variables of each feature vector is available in &#39;features.txt&#39;</p>
+
+</body>
+
+</html>
+

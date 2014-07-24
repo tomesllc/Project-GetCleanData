@@ -1,6 +1,8 @@
 Codebook - Class Project: Getting & Cleaning Data - July, 2014
 ========================================================
 
+
+
 This document is the codebook for the class project assignment in Johns Hopkins' "Getting and Cleaning Data" class. Within this I describe the data sources, transformations, data output and other data aspects of the project. Information on running the associated R script are included in the README.md file in the same repository.
 
 ## Data Sources ##
@@ -20,9 +22,9 @@ The downloaded zip file creates a directory containing a variety of files. This 
 1. X_test.txt
 2. y_test.txt
 3. subject_test.txt
-1. X_train.txt
-2. y_train.txt
-3. subject_train.txt
+4. X_train.txt
+5. y_train.txt
+6. subject_train.txt
 
 #### Reference files ####
 1. README.txt
@@ -32,14 +34,14 @@ The downloaded zip file creates a directory containing a variety of files. This 
 
 ## Data File Manipulations ##
 
-The data files encompass a pair of 3-set files. The pairs are train and test. Train and test are subsets of the full data set, likely used for regression or other types of statistical testing. My first manipulations involved combining the datasets back into a single data file. This was done is two steps; first the test and train sets were combined into a pair of files using column manipulations and then the resulting two files were combined into a single file using a row-related function. The consolidated file was 10,299 x 563 in size.
+The data files encompass a pair of 3-set files. The pairs are train and test. Train and test are subsets of the full data set, likely used for regression or other types of statistical testing. My first manipulations involved combining the datasets back into a single data table. This was done is two steps; first the test and train sets were combined into a pair of tables using column manipulations and then the resulting two data frames were combined into a single data frame, named "consolidated" using a row-related function. The consolidated file was 10,299 x 563 in size.
 
 ### Column manipulations ###
 ```{r}
 testCombined = cbind(testSubject, testY, testX)
 trainCombined = cbind(trainSubject, trainY, trainX)
 ```
-### Row based file combination ###
+### Row based combination ###
 ```{r}
 consolidated = rbind(trainCombined, testCombined)
 ```
@@ -47,7 +49,7 @@ The first two columns of the consolidated file represent the study subject and t
 ```{r}
 colnames(consolidated)[1:2] = c("Subject", "Activity")
 ```
-Column 2, Activity, is a numberic factor representing the activity for the row of measurements. The coding of this factor is identified in the "activity_labels.text" file mentioned above. There were six distinct activities. The numeric values in the column were coded to the text values using this command:
+Column 2, Activity, is a numeric factor representing the activity for the row of measurements. The coding of this factor is identified in the "activity_labels.text" file mentioned above. There were six distinct activities. The numeric values in the column were coded to the text values using this command:
 ```{r}
 consolidated$Activity = factor(consolidated$Activity,
                                labels = c("WALKING", "WALKING_UPSTAIRS",
@@ -58,7 +60,7 @@ The phase ended with a single data.frame, "consolidated". The next step involved
 
 ## Feature Identification and Selection ##
 
-There are a total of 563 variables available for analysis of which 561 are measurements associated with the specified patient and activity. The columns involved various statistical measures, such as mean, std. deviation and median, of a set of core movement measurements. A discussion of these variables is found in the "The core measurements are:
+There are a total of 563 variables available for analysis of which 561 are measurements associated with the specified patient and activity. The columns involved various statistical measures, such as mean, std. deviation and median, of a set of core movement measurements. A discussion of these variables is found in the features_info.txt file which is included at the end of this document. The core measurements are:
 ### Core Measurements ###
 1. tBodyAcc-XYZ 
 2. tGravityAcc-XYZ 
@@ -78,11 +80,11 @@ There are a total of 563 variables available for analysis of which 561 are measu
 16. fBodyGyroMag
 17. fBodyGyroJerkMag
 
-These are identified in the features.txt file and described in the features_info.txt file. The leading character, t or f, code whether the measurment were originally processed using time domain or frequency domain based techniques. Variables with a trailing "-XYZ" indicate that 3 separate features, representing a three dimensional axis, are associated with the measurement. 
+These are identified in the features.txt file and described in the features_info.txt file. The leading character, t or f, codes whether the measures were originally processed using time domain or frequency domain based techniques. Variables with a trailing "-XYZ" indicate that 3 separate features, representing a three dimensional axis, are associated with the measure. 
 
-Our assignment called for using only the columns associated with the mean and standard deviation for each measurement. Using this limits I extracted 6 features each for measures 1-5 & 11-13 and 2 features for measures 6-10 and 14-17 for a total feature set of 64. 
+Our assignment called for using only the columns associated with the mean and standard deviation for each measurement. Using this constraint I extracted 6 features each for measures 1-5 & 11-13 and 2 features for measures 6-10 and 14-17 for a total feature set of 66. 
 
-This extraction was done by first reading in the features file and then greping the column names for the strings of "mean()" and "std()" and using the column numbers to extract the subset from the consolidate file. The associated R commands are:
+This extraction was done by first reading in the features file and then greping the column names for the strings of "mean()" and "std()" and using the column numbers to extract the subset from the consolidated file. The associated R commands are:
 ```{r}
 features = read.table("features.txt")
 meanColumns = grep("mean\\(\\)", features$V2)
@@ -90,7 +92,7 @@ stdColumns = grep("std\\(\\)", features$V2)
 desiredColumns = sort(c(meanColumns, stdColumns))
 tempData = data.table(consolidated[, c(1, 2, desiredColumns+2)])[order(Subject, Activity)]
  ``` 
-There are 6 additional features at the end of the file that contain the string "Mean". These did not seem to be appropriate for our analysis and I did not include them. The resultant table, tempData, is a data.table to enable a few functions used subsequently and to improve speed.
+There are 6 additional measures at the end of the file that contain the string "Mean". These did not seem to be appropriate for our analysis and I did not include them. The resultant table, tempData, is a data.table to enable a few functions used subsequently and to improve speed.
 
 The selected features columns were then renamed to make them more readable. I prefaced each feature with either "Mean" or "Std" to indicate whether it is an mean or standard deviation feature. The t and f for replaced with TimeDom or FreqDom to indicate time domain or frequency domain processed features. The string "Acc" represents measures from the device accelerometer, "Gyro" measures from teh device gyroscope, Jerk represents linear and angular velocities. More detail on these measures can be found in the features_info.txt file. It is included in its entirety at the end of this document. Finally an X, Y or Z was included at the end for those 3 axis related measures. The command for this used the data.table function setnames:
 ```{r}
@@ -123,7 +125,7 @@ setnames(tempData, old = 3:68,
 ``` 
 
 ## Data Summarization ##
-The project specified "Creates a second, independent tidy data set with the average of each variable for each activity and each subject.". I summarized by Subject and Activity using the data.table form:
+The project specified "Creates a second, independent tidy data set with the average of each variable for each activity and each subject.". This collapses the data set into one row per subject and activity. There are a total of 30 subjects and each subject has 6 activities. This gives the resulting tidy table a total length of 30 x 6 or 180 rows. We have the same number of columns; Subject, Activity, and the average of 66 measures variables for a total of 68 columns. Our final tidy table is 180 x 60 in size. I accomplished the summarization by Subject and Activity using the data.table form:
 ```{r}
 tidyData = tempData[, lapply(.SD, mean), by = c("Subject", "Activity")]
 ```
@@ -147,50 +149,50 @@ Finally a Fast Fourier Transform (FFT) was applied to some of these signals prod
 These signals were used to estimate variables of the feature vector for each pattern:  
 '-XYZ' is used to denote 3-axial signals in the X, Y and Z directions.
 
-  tBodyAcc-XYZ 
-  tGravityAcc-XYZ 
-  tBodyAccJerk-XYZ 
-  tBodyGyro-XYZ 
-  tBodyGyroJerk-XYZ 
-  tBodyAccMag 
-  tGravityAccMag 
-  tBodyAccJerkMag 
-  tBodyGyroMag 
-  tBodyGyroJerkMag 
-  fBodyAcc-XYZ 
-  fBodyAccJerk-XYZ 
-  fBodyGyro-XYZ 
-  fBodyAccMag 
-  fBodyAccJerkMag 
-  fBodyGyroMag 
-  fBodyGyroJerkMag 
+ * tBodyAcc-XYZ 
+ * tGravityAcc-XYZ 
+ * tBodyAccJerk-XYZ 
+ * tBodyGyro-XYZ 
+ * tBodyGyroJerk-XYZ 
+ * tBodyAccMag 
+ * tGravityAccMag 
+ * tBodyAccJerkMag 
+ * tBodyGyroMag 
+ * tBodyGyroJerkMag 
+ * fBodyAcc-XYZ 
+ * fBodyAccJerk-XYZ 
+ * fBodyGyro-XYZ 
+ * fBodyAccMag 
+ * fBodyAccJerkMag 
+ * fBodyGyroMag 
+ * fBodyGyroJerkMag 
 
 The set of variables that were estimated from these signals are: 
 
-  mean(): Mean value 
-  std(): Standard deviation 
-  mad(): Median absolute deviation 
-  max(): Largest value in array 
-  min(): Smallest value in array 
-  sma(): Signal magnitude area 
-  energy(): Energy measure. Sum of the squares divided by the number of values.  
-  iqr(): Interquartile range  
-  entropy(): Signal entropy 
-  arCoeff(): Autorregresion coefficients with Burg order equal to 4 
-  correlation(): correlation coefficient between two signals 
-  maxInds(): index of the frequency component with largest magnitude 
-  meanFreq(): Weighted average of the frequency components to obtain a mean frequency 
-  skewness(): skewness of the frequency domain signal  
-  kurtosis(): kurtosis of the frequency domain signal  
-  bandsEnergy(): Energy of a frequency interval within the 64 bins of the FFT of each window. 
-  angle(): Angle between to vectors. 
+ * mean(): Mean value 
+ * std(): Standard deviation 
+ * mad(): Median absolute deviation 
+ * max(): Largest value in array 
+ * min(): Smallest value in array 
+ * sma(): Signal magnitude area 
+ * energy(): Energy measure. Sum of the squares divided by the number of values.  
+ * iqr(): Interquartile range  
+ * entropy(): Signal entropy 
+ * arCoeff(): Autorregresion coefficients with Burg order equal to 4 
+ * correlation(): correlation coefficient between two signals 
+ * maxInds(): index of the frequency component with largest magnitude 
+ * meanFreq(): Weighted average of the frequency components to obtain a mean frequency 
+ * skewness(): skewness of the frequency domain signal  
+ * kurtosis(): kurtosis of the frequency domain signal  
+ * bandsEnergy(): Energy of a frequency interval within the 64 bins of the FFT of each window. 
+ * angle(): Angle between to vectors. 
 
 Additional vectors obtained by averaging the signals in a signal window sample. These are used on the angle() variable:
 
-  gravityMean 
-  tBodyAccMean 
-  tBodyAccJerkMean 
-  tBodyGyroMean 
-  tBodyGyroJerkMean 
+ * gravityMean 
+ * tBodyAccMean 
+ * tBodyAccJerkMean 
+ * tBodyGyroMean 
+ * tBodyGyroJerkMean 
 
 The complete list of variables of each feature vector is available in 'features.txt'

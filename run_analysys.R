@@ -65,12 +65,9 @@ tempData = data.table(consolidated[, c(1, 2, desiredColumns+2)])[order(Subject, 
 # Will reset after summarizing data into final tidy data table
 setnames(tempData, old = 3:68, new = as.character(features[desiredColumns,2]))
 
-# Now summarize by Subject and Activity, create final tidyData table
-tidyData = tempData[, lapply(.SD, mean), by = c("Subject", "Activity")]
-
 # Set feature column names, except Subject & Activity, to more human readable
 # values. See codebook for more detailed explanation of meanings.
-setnames(tidyData, old = 3:68, 
+setnames(tempData, old = 3:68, 
          new = c("MeanTimeDomBodyAcc_X", "MeanTimeDomBodyAcc_Y", "MeanTimeDomBodyAcc_Z",
                  "StdTimeDomBodyAcc_X", "StdTimeDomBodyAcc_Y", "StdTimeDomBodyAcc_Z",
                  "MeanTimeDomGravityAcc_X", "MeanTimeDomGravityAcc_Y", "MeanTimeDomGravityAcc_Z",
@@ -96,6 +93,10 @@ setnames(tidyData, old = 3:68,
                  "MeanFreqBodyAccJerkMag", "StdFreqBodyAccJerkMag",
                  "MeanFreqBodyGyroMag", "StdFreqBodyGyroMag",
                  "MeanFreqBodyGyroJerkMag", "StdFreqBodyGyroJerkMag"))
+
+# Now summarize by Subject and Activity, create final tidyData table
+tidyData = tempData[, lapply(.SD, mean), by = c("Subject", "Activity")]
+
 
 # Finally write out the tidy data table into a space delimited text file in the 
 # currrent working directory
