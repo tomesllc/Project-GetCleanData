@@ -15,7 +15,7 @@ The dataset itself was downloaded using this URL:
 
 https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 
-The downloaded zip file creates a directory containing a variety of files. This project utilized a subset of the avaialable files:
+The downloaded zip file creates a directory containing a variety of files. This project utilized a subset of the available files:
 
 ### Download Files Utilized ###
 #### Data files ####
@@ -56,7 +56,7 @@ consolidated$Activity = factor(consolidated$Activity,
                                           "WALKING_DOWNSTAIRS", "SITTING",
                                           "STANDING", "LAYING"))
  ```                                         
-The phase ended with a single data.frame, "consolidated". The next step involved selecting which feature columns to include in the final file and the identifying and selecting those columns.
+The phase ended with a single data.frame, "consolidated". The next step involved selecting which feature columns to include in the final file and the identification and selection of those columns.
 
 ## Feature Identification and Selection ##
 
@@ -125,7 +125,7 @@ setnames(tempData, old = 3:68,
 ``` 
 
 ## Data Summarization ##
-The project specified "Creates a second, independent tidy data set with the average of each variable for each activity and each subject.". This collapses the data set into one row per subject and activity. There are a total of 30 subjects and each subject has 6 activities. This gives the resulting tidy table a total length of 30 x 6 or 180 rows. We have the same number of columns; Subject, Activity, and the average of 66 measures variables for a total of 68 columns. Our final tidy table is 180 x 60 in size. I accomplished the summarization by Subject and Activity using the data.table form:
+The project specified "Creates a second, independent tidy data set with the average of each variable for each activity and each subject.". This collapses the data set into one row per subject and activity. There are a total of 30 subjects and each subject has 6 activities. This gives the resulting tidy table a total length of 30 x 6 or 180 rows. We have the same number of columns; Subject, Activity, and the average of 66 measures variables for a total of 68 columns. Our final tidy table is 180 x 68 in size. I accomplished the summarization by Subject and Activity using the data.table form:
 ```{r}
 tidyData = tempData[, lapply(.SD, mean), by = c("Subject", "Activity")]
 ```
